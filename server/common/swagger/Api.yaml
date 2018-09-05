@@ -34,8 +34,19 @@ definitions:
     properties:
       name:
         type: string
-        example: no_stress
-
+        example: "Andre Lopes"
+      username:
+        type: string
+        example: oandrelopes
+      email:
+        type: string
+        example: "lopes.andree@gmail.com"
+      bio:
+        type: string
+        example: ""
+      image:
+        type: string
+        example: ""
 paths:
   /examples:
     get:
