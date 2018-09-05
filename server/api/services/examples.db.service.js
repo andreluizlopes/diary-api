@@ -24,6 +24,7 @@ class ExamplesDatabase {
   }
 
   insert(text) {
+    console.log(text);
     const record = {
       text
     };

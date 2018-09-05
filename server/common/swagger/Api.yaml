@@ -26,6 +26,15 @@ definitions:
       name:
         type: string
         example: no_stress
+  UserBody:
+    type: object
+    title: user
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        example: no_stress
 
 paths:
   /examples:
@@ -74,3 +83,26 @@ paths:
       responses:
         200:
           description: Return the API specification
+
+  /users:
+    get:
+      tags:
+        - Users
+      description: Fetch all users
+      responses:
+        200:
+          description: Returns all users
+    post:
+      tags:
+        - Users
+      description: Create a new user
+      parameters:
+        - name: user
+          in: body
+          description: an user
+          required: true
+          schema: 
+            $ref: "#/definitions/UserBody"
+      responses:
+        200:
+          description: Returns all users
