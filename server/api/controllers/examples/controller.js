@@ -11,7 +11,6 @@ export class Controller {
     ExamplesService
       .byId(req.params.id)
       .then(r => {
-        console.log(r);
         if (r) res.json(r);
         else res.status(404).end();
       });
@@ -19,7 +18,7 @@ export class Controller {
 
   create(req, res) {
     ExamplesService
-      .create(req.body.text)
+      .create(req.body)
       .then(r => res
         .status(201)
         .location(`/api/v1/examples/${r.id}`)

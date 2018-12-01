@@ -23,7 +23,6 @@ class ExamplesDatabase {
   }
 
   insert(user) {
-    console.log(user);
     if (getDB()) {
       const collection = getDB().collection(this.collection);
       collection.save(user, (err, result) => {

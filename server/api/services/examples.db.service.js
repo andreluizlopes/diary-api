@@ -23,22 +23,15 @@ class ExamplesDatabase {
     return Promise.resolve(this._data[id]);
   }
 
-  insert(text) {
-    console.log(text);
-    const record = {
-      text
-    };
-
+  insert(example) {
     if (getDB()) {
       const collection = getDB().collection('diary-post');
-      collection.save(record, (err, result) => {
+      collection.save(example, (err, result) => {
         if (err) return console.log(err)
-
-        console.log('saved to databaseaaaa');
       });
     }
 
-    return Promise.resolve(record);
+    return Promise.resolve(example);
   }
 }
 
