@@ -4,6 +4,7 @@
   "description": "Diary API",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm run compile",
     "start": "cd build && node main",
     "compile": "node build.js && backpack build",
     "dev": "node build.js && backpack dev | pino -o 'short'",
