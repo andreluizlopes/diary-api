@@ -2,20 +2,16 @@ import { get as getDB } from '../../common/db';
 
 class ExamplesDatabase {
   constructor() {
-    this._data = [];
-
-    this.insert('example 0');
-    this.insert('example 1');
+    this._data = []
   }
 
   async all() {
-    const collection = getDB().collection('diary-post');
+    const collection = getDB().collection('diary-post')
 
-    return collection.find().toArray();
+    return collection.find().sort({ _id: -1 }).toArray();
   }
 
   byId(id) {
-    console.log(id);
     const collection = getDB().collection('diary-post');
     return collection.find({
       id: parseInt(id)

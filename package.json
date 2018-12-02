@@ -4,7 +4,7 @@
   "description": "Diary API",
   "main": "index.js",
   "scripts": {
-    "postinstall": "npm run compile",
+    "postinstall": "node build.js && backpack build",
     "start": "cd build && node main",
     "compile": "node build.js && backpack build",
     "dev": "node build.js && backpack dev | pino -o 'short'",
@@ -12,8 +12,11 @@
     "test": "node build.js && _mocha --compilers js:babel-register --exit"
   },
   "dependencies": {
+    "backpack-core": "^0.7.0",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
+    "copy-webpack-plugin": "^4.5.1",
+    "cors": "^2.8.5",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "mongodb": "^3.1.4",
@@ -25,9 +28,7 @@
   "devDependencies": {
     "babel-eslint": "^8.2.2",
     "babel-preset-env": "^1.6.1",
-    "backpack-core": "^0.7.0",
     "chai": "^4.1.2",
-    "copy-webpack-plugin": "^4.5.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^11.3.2",
     "eslint-plugin-import": "^2.13.0",
