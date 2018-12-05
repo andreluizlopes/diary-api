@@ -13,13 +13,18 @@
   },
   "dependencies": {
     "backpack-core": "^0.7.0",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "copy-webpack-plugin": "^4.5.1",
     "cors": "^2.8.5",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
+    "jwt-simple": "^0.5.5",
     "mongodb": "^3.1.4",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "pino": "^4.17.6",
     "shelljs": "^0.8.3",
     "source-map-support": "^0.5.4",
@@ -31,9 +36,13 @@
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^11.3.2",
-    "eslint-plugin-import": "^2.13.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "mocha": "^5.0.5",
     "supertest": "^3.0.0"
   },
-  "author": "Carmine DiMascio <cdimascio@gmail.com> (https://github.com/cdimascio)"
+  "author": "André L <lopes.andree@gmail.com> (https://github.com/andreluizlopes)"
 }

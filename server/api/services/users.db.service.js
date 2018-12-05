@@ -1,38 +1,37 @@
-import { get as getDB } from '../../common/db';
+import bcrypt from 'bcrypt-nodejs'
+import { get as getDB } from '../../common/db'
 
 class ExamplesDatabase {
-  constructor() {
-    this._data = [];
-    this.collection = 'users';
-
-
+  constructor () {
+    this._data = []
+    this.collection = 'users'
   }
 
-  async all() {
-    const collection = getDB().collection(this.collection);
+  async all () {
+    const collection = getDB().collection(this.collection)
 
-    return collection.find().toArray();
+    return collection.find().toArray()
   }
 
-  byId(id) {
-    const collection = getDB().collection(this.collection);
+  byId (id) {
+    const collection = getDB().collection(this.collection)
     return collection.find({
       id: parseInt(id)
-    }).toArray();
-    return Promise.resolve(this._data[id]);
+    }).toArray()
+    return Promise.resolve(this._data[id])
   }
 
-  insert(user) {
-    if (getDB()) {
-      const collection = getDB().collection(this.collection);
+  insert (user) {
+    bcrypt.hash(user.password, null, null, (err, hash) => {
+      user.password = hash
+      const collection = getDB().collection(this.collection)
       collection.save(user, (err, result) => {
         if (err) return console.log(err)
+      })
+    })
 
-      });
-    }
-
-    return Promise.resolve(user);
+    return Promise.resolve(user)
   }
 }
 
-export default new ExamplesDatabase();
+export default new ExamplesDatabase()
