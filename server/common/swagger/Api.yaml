@@ -17,6 +17,19 @@ produces:
 
 
 definitions:
+  SigninBody:
+    type: object
+    title: signin
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        example: email@email.co
+      password:
+        type: string
+        example: password123
   ExampleBody:
     type: object
     title: example
@@ -48,6 +61,22 @@ definitions:
         type: string
         example: ""
 paths:
+  /signin:
+    post:
+      tags:
+        - Signin
+      description: Signin in App
+      parameters:
+        - name: email
+          in: body
+          description: email@email.co
+          required: true
+          schema: 
+            $ref: "#/definitions/SigninBody"
+      responses:
+        201:
+          description: Returns user token
+
   /examples:
     get:
       tags:

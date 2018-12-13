@@ -16,21 +16,6 @@ class AuthDatabase {
     return Promise.resolve(true)
   }
 
-  auth (email) {
-    return this.byEmail(email)
-
-    // collection.findOne({ email }).then( user => {
-    //   // bcrypt.compare(password, user.password)
-    //   //   .then(res => console.log(res))
-    //   //   .catch(err => console.log(err))
-    //   // const match = bcrypt.compare(password, user.password)
-    //   //   .then(res => res)
-    //   //   .catch(err => err)
-
-    //   return { user }
-    // })
-  }
-
   byEmail (email) {
     const collection = getDB().collection(this.collection)
     return collection.findOne({

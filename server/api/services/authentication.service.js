@@ -15,9 +15,9 @@ class ExamplesService {
     return db.byId(id)
   }
 
-  auth (email, password) {
-    l.info(`${this.constructor.name}.auth(${email})`)
-    return db.auth(email, password)
+  byEmail (email) {
+    l.info(`${this.constructor.name}.byEmail(${email})`)
+    return db.byEmail(email)
   }
 
   create (user) {
