@@ -4,10 +4,12 @@ import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt'
 import bcrypt from 'bcrypt-nodejs'
 import jwt from 'jwt-simple'
 import authService from '../server/api/services/authentication.service'
+import userService from '../server/api/services/users.service'
 
 const tokenForUser = user => {
   const timestamp = new Date().getTime()
-  return jwt.encode({ sub: user.username, iat: timestamp }, 'secret')
+  const userDataToken = { username: user.username, id: user._id }
+  return jwt.encode({ sub: userDataToken, iat: timestamp }, 'secret')
 }
 
 passport.use('local-signin',
@@ -16,8 +18,22 @@ passport.use('local-signin',
     passwordField: 'password',
     passReqToCallback: true
   },
-  (req, email, password, cb) =>
-    authService.byEmail(email)
+  (req, email, password, cb) => {
+    if (email.replace(/.*@/, '') === 'guest.com') {
+      console.log('WIP: guest user')
+      const user = {
+        email,
+        password: email,
+        username: email
+      }
+      userService.create(user).then(user => {
+        console.log(user)
+        const token = tokenForUser(user)
+        const logedUser = { id: user._id, user: user.email, token }
+        cb(null, logedUser)
+      })
+    }
+    return authService.byEmail(email)
       .then(user => {
         if (!user) {
           cb(null, false)
@@ -32,6 +48,7 @@ passport.use('local-signin',
             if (match) {
               const token = tokenForUser(user)
               const logedUser = {
+                id: user._id,
                 user: user.username,
                 token
               }
@@ -41,6 +58,7 @@ passport.use('local-signin',
         }
       })
       .catch(err => cb(err))
+  }
   )
 )
 
@@ -51,20 +69,21 @@ const jwtOptions = {
 }
 
 passport.use(
-  new JwtStrategy(jwtOptions, (payload, cb) => {
-    console.log(payload)
-
-    return authService.byId(payload.sub)
+  new JwtStrategy(jwtOptions, (payload, cb) =>
+    authService.byId(payload.sub.username)
       .then(user => {
         if (user) {
-          cb(null, user)
+          const userDataToken = {
+            username: user.username,
+            id: user._id
+          }
+          cb(null, userDataToken)
         }
         if (!user) {
           cb(null, false)
         }
       })
       .catch(err => cb(err, false))
-  }
   )
 )
 

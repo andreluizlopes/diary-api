@@ -34,7 +34,7 @@ definitions:
     type: object
     title: example
     required:
-      - name
+      - title
     properties:
       name:
         type: string

@@ -1,28 +1,29 @@
-import ExamplesService from '../../services/examples.service';
+import ExamplesService from '../../services/examples.service'
 
 export class Controller {
-  all(req, res) {
-    console.log(ExamplesService.all());
-    ExamplesService.all()
-      .then(r => res.json(r));
+  all (req, res) {
+    ExamplesService.all(req.user)
+      .then(r => res.json(r))
   }
 
-  byId(req, res) {
+  byId (req, res) {
     ExamplesService
       .byId(req.params.id)
       .then(r => {
-        if (r) res.json(r);
-        else res.status(404).end();
-      });
+        if (r) res.json(r)
+        else res.status(404).end()
+      })
   }
 
-  create(req, res) {
+  create (req, res) {
+    const userID = { user_id: req.user.id }
+    const diaryPost = Object.assign(userID, req.body)
     ExamplesService
-      .create(req.body)
+      .create(diaryPost)
       .then(r => res
         .status(201)
         .location(`/api/v1/examples/${r.id}`)
-        .json(r));
+        .json(r))
   }
 }
-export default new Controller();
+export default new Controller()

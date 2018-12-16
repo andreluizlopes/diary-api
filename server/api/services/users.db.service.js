@@ -22,6 +22,7 @@ class ExamplesDatabase {
   }
 
   insert (user) {
+    console.log(user)
     bcrypt.hash(user.password, null, null, (err, hash) => {
       user.password = hash
       const collection = getDB().collection(this.collection)
